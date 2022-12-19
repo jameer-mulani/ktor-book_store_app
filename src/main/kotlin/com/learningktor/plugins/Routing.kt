@@ -1,15 +1,21 @@
 package com.learningktor.plugins
 
+import com.learningktor.routing.bookRouting
 import io.ktor.server.application.*
 import io.ktor.server.locations.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     install(Locations) {
     }
 
+
     routing {
+        bookRouting()
+    }
+
+
+    /*routing {
         get("/") {
             call.respondText("Hello World!")
         }
@@ -23,11 +29,13 @@ fun Application.configureRouting() {
             get<Type.List> {
                 call.respondText("Inside $it")
             }
-    }
+    }*/
 }
+
 @Location("/location/{name}")
 class MyLocation(val name: String, val arg1: Int = 42, val arg2: String = "default")
-@Location("/type/{name}") data class Type(val name: String) {
+@Location("/type/{name}")
+data class Type(val name: String) {
     @Location("/edit")
     data class Edit(val type: Type)
 
